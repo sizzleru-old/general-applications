@@ -1,10 +1,24 @@
-from typing import Any, Callable, Tuple, get_type_hints
+from typing import Any, Callable, Dict, Tuple, get_type_hints
 
-from constants import RETURN_PARAMETER
+from constants import RETURN_PARAMETER, NoneType
 from helper import _get_args
 
 
-def _validator(func: Callable[..., Any]) -> Callable[..., Any]:
+def _validate_parameter(parameter_value: Any, parameter_type: Any) -> NoneType:
+    print(parameter_value, parameter_type)
+
+
+def _validate_function(parameter_values: Dict[str, Any], parameter_type_hints: Dict[str, Any]) -> Any:
+
+    function_value = parameter_values[RETURN_PARAMETER]
+
+    for parameter_name in parameter_type_hints:
+        _validate_parameter(parameter_values[parameter_name], parameter_type_hints[parameter_name])
+
+    return function_value
+
+
+def validator(func: Callable[..., Any]) -> Callable[..., Any]:
     """[validates the parameters using the wrapper function validator_wrapper]
 
     Args:
@@ -22,12 +36,12 @@ def _validator(func: Callable[..., Any]) -> Callable[..., Any]:
         """
         parameter_values = _get_args(func, args, kwargs)
         parameter_type_hints = get_type_hints(func)
-        return parameter_values[RETURN_PARAMETER]
+        return _validate_function(parameter_values, parameter_type_hints)
 
     return validator_wrapper
 
 
-def _skip_validator(func: Callable[..., Any]) -> Callable[[Any], Any]:
+def skip_validator(func: Callable[..., Any]) -> Callable[[Any], Any]:
     """[returns the parameter value, acting as a function that skips the validation process]
 
     Args:
