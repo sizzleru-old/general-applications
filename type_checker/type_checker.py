@@ -1,6 +1,5 @@
 from typing import Any, Callable, Dict, Tuple, get_type_hints
-
-RETURN_PARAMETER = "return"
+from constants import RETURN_PARAMETER
 
 
 def _get_input_args(func: Callable[..., Any], args: Tuple[Any], kwargs: Tuple[Any]) -> Dict[str, Any]:
