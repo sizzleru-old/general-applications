@@ -51,3 +51,7 @@ def type_error_message(parameter_name: str, parameter_value: Any, parameter_type
         + str(parameter_value)
         + " instead)"
     )
+
+
+def switch(expression: Any, switch_cases: Dict[Any, Callable[[], Any]]) -> Any:
+    return switch_cases[expression]

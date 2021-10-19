@@ -2,11 +2,12 @@ from typing import Any, Callable, Dict, Tuple, get_type_hints
 
 from constants import RETURN_PARAMETER, NoneType
 from helper import get_args, type_error_message
-from valid_typing import valid_NormalType
+from valid_typing import valid_NormalType, valid_NewType
 
 
 def _inspect_parameter(parameter_value: Any, parameter_type: Any) -> bool:
-    return valid_NormalType(parameter_value, parameter_type)
+    params = parameter_value, parameter_type
+    return valid_NormalType(*params) or valid_NewType(*params)
 
 
 def _validate_function(parameter_values: Dict[str, Any], parameter_type_hints: Dict[str, Any]) -> Any:
