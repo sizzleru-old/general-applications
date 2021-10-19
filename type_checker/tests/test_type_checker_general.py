@@ -6,6 +6,7 @@ import unittest
 
 from constants import NoneType
 from type_checker import type_check
+from validator import _validate_function, validator
 
 
 class TestGeneral(TestCase):

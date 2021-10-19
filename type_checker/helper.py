@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, Tuple
+from typing import Any, Callable, Dict, Tuple, Type
 
 from constants import RETURN_PARAMETER
 
@@ -18,7 +18,7 @@ def _get_input_args(func: Callable[..., Any], args: Tuple[Any], kwargs: Tuple[An
     return {**dict(zip(args_names, args)), **kwargs}
 
 
-def _get_args(func: Callable[..., Any], args: Tuple[Any], kwargs: Tuple[Any]):
+def get_args(func: Callable[..., Any], args: Tuple[Any], kwargs: Tuple[Any]):
     """[gets both the input and output arguments of a given function]
 
     Args:
@@ -32,3 +32,22 @@ def _get_args(func: Callable[..., Any], args: Tuple[Any], kwargs: Tuple[Any]):
     args_value = _get_input_args(func, args, kwargs)
     args_value[RETURN_PARAMETER] = func(*args, **kwargs)
     return args_value
+
+
+def _get_name(obj: Any):
+    try:
+        return obj.__name__
+    except:
+        return str(obj)
+
+
+def type_error_message(parameter_name: str, parameter_value: Any, parameter_type_hint: Type):
+    return (
+        "Argument "
+        + parameter_name
+        + " is not of type "
+        + _get_name(parameter_type_hint)
+        + " (Got "
+        + str(parameter_value)
+        + " instead)"
+    )

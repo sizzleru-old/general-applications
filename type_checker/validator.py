@@ -1,11 +1,12 @@
 from typing import Any, Callable, Dict, Tuple, get_type_hints
 
 from constants import RETURN_PARAMETER, NoneType
-from helper import _get_args
+from helper import get_args, type_error_message
+from valid_typing import valid_NormalType
 
 
-def _validate_parameter(parameter_value: Any, parameter_type: Any) -> NoneType:
-    print(parameter_value, parameter_type)
+def _inspect_parameter(parameter_value: Any, parameter_type: Any) -> bool:
+    return valid_NormalType(parameter_value, parameter_type)
 
 
 def _validate_function(parameter_values: Dict[str, Any], parameter_type_hints: Dict[str, Any]) -> Any:
@@ -13,8 +14,10 @@ def _validate_function(parameter_values: Dict[str, Any], parameter_type_hints: D
     function_value = parameter_values[RETURN_PARAMETER]
 
     for parameter_name in parameter_type_hints:
-        _validate_parameter(parameter_values[parameter_name], parameter_type_hints[parameter_name])
-
+        parameter_value = parameter_values[parameter_name]
+        parameter_type_hint = parameter_type_hints[parameter_name]
+        if not _inspect_parameter(parameter_value, parameter_type_hint):
+            raise TypeError(type_error_message(parameter_name, parameter_value, parameter_type_hint))
     return function_value
 
 
@@ -34,7 +37,7 @@ def validator(func: Callable[..., Any]) -> Callable[..., Any]:
         Returns:
             Any: [the original function return value]
         """
-        parameter_values = _get_args(func, args, kwargs)
+        parameter_values = get_args(func, args, kwargs)
         parameter_type_hints = get_type_hints(func)
         return _validate_function(parameter_values, parameter_type_hints)
 
