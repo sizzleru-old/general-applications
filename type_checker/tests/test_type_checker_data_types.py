@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from unittest import TestCase
 import unittest
+from unittest import TestCase
 
-from constants import NoneType
-from type_checker import type_check
-from helper import type_error_message
+from type_checker.constants import NoneType
+from type_checker.helper import type_error_message
+from type_checker.main import type_check
 
 
 class TestDataTypes(TestCase):

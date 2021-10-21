@@ -1,6 +1,6 @@
 from typing import Callable
 
-from validator import skip_validator, validator
+from type_checker.validator import skip_validator, validator
 
 
 def type_check(run: bool = True) -> Callable[[Callable], Callable]:
