@@ -1,3 +1,7 @@
 # caches
 __pycache__/
 tempCodeRunnerFile.py
+
+# reports
+.coverage
+coverage_reports/
