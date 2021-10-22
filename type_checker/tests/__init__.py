@@ -1,6 +1,6 @@
 from unittest import TestLoader, TextTestRunner
 
-from type_checker.constants import NoneType
+from constants import NoneType
 
 
 def run_all_tests() -> NoneType:

@@ -4,9 +4,9 @@ from typing import Any
 from unittest import TestCase
 import unittest
 
-from type_checker.constants import NoneType
-from type_checker.main import type_check
-from type_checker.validator import _validate_function, validator
+from constants import NoneType
+from main import type_check
+from validator import _validate_function, validator
 
 
 class TestGeneral(TestCase):

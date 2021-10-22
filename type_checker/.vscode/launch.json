@@ -5,7 +5,7 @@
             "name": "Run type_checker module tests",
             "type": "python",
             "request": "launch",
-            "module": "type_checker.tests.__init__",
+            "module": "tests.__init__",
             "console": "integratedTerminal"
         }
     ]

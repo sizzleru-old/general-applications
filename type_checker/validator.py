@@ -1,8 +1,8 @@
 from typing import Any, Callable, Dict, Tuple, get_type_hints
 
-from type_checker.constants import RETURN_PARAMETER, NoneType
-from type_checker.helper import get_args, type_error_message
-from type_checker.valid_typing import valid_NormalType, valid_NewType
+from constants import RETURN_PARAMETER, NoneType
+from helper import get_args, type_error_message
+from valid_typing import valid_NormalType, valid_NewType
 
 
 def _inspect_parameter(parameter_value: Any, parameter_type: Any) -> bool:
