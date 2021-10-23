@@ -67,18 +67,3 @@ def try_pass(func: Callable[..., Any], *args: Tuple[Any, ...], **kwargs: Tuple[A
         return True
     except:
         return False
-
-
-def try_func(func: Callable[..., Any]) -> Callable[..., Any]:
-    def try_func_wrapper(*args: Tuple[Any], **kwargs: Tuple[Any]) -> Any:
-        try:
-            return func(*args, **kwargs)
-        except:
-            return None
-
-    return try_func_wrapper
-
-
-@try_func
-def get_supertype(obj: Any) -> Any:
-    pass

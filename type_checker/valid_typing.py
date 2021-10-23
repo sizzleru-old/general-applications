@@ -4,9 +4,11 @@ from helper import try_pass, type_hint_callable_to_list
 
 
 def _try_is_instance(obj: Any, class_or_tuple: Type, type_extractor: Callable[[Any], Type] = type) -> bool:
-    try_pass(isinstance, (obj, class_or_tuple))
-    try_pass(lambda obj: issubclass(type_extractor(obj), class_or_tuple), obj)
-    return try_pass(lambda obj: type_extractor(obj) is class_or_tuple, obj)
+    return (
+        try_pass(isinstance, (obj, class_or_tuple))
+        or try_pass(lambda obj: issubclass(type_extractor(obj), class_or_tuple), obj)
+        or try_pass(lambda obj: type_extractor(obj) is class_or_tuple, obj)
+    )
 
 
 def valid_NormalType(parameter_value: Any, parameter_type: Any) -> bool:
