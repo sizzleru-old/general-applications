@@ -1,7 +1,7 @@
 from typing import Any, Callable, Dict, Tuple, get_type_hints
 
-from constants import RETURN_PARAMETER, NoneType
-from helper import get_args, type_error_message
+from constants import RETURN_PARAMETER
+from helper import get_f_args, type_error_message
 from valid_typing import valid_NormalType, valid_NewType
 
 
@@ -38,7 +38,7 @@ def validator(func: Callable[..., Any]) -> Callable[..., Any]:
         Returns:
             Any: [the original function return value]
         """
-        parameter_values = get_args(func, args, kwargs)
+        parameter_values = get_f_args(func, args, kwargs)
         parameter_type_hints = get_type_hints(func)
         return _validate_function(parameter_values, parameter_type_hints)
 

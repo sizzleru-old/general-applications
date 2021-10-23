@@ -31,13 +31,13 @@ class TestDataTypes(TestCase):
             try:
                 func_int(int(param_numeric))
             except TypeError as context:
-                self.fail("Unexpected TypeError with message: " + context.exception)
+                self.fail("Unexpected TypeError with message: " + str(context))
 
         for param_float in self.param_float_list:
             try:
                 func_float(float(param_float))
             except TypeError as context:
-                self.fail("Unexpected TypeError with message: " + context.exception)
+                self.fail("Unexpected TypeError with message: " + str(context))
 
 
 if __name__ == "__main__":

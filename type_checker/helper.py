@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, Tuple, Type
+from typing import Any, Callable, Dict, List, Tuple, Type
 
 from constants import RETURN_PARAMETER
 
@@ -18,7 +18,7 @@ def _get_input_args(func: Callable[..., Any], args: Tuple[Any], kwargs: Tuple[An
     return {**dict(zip(args_names, args)), **kwargs}
 
 
-def get_args(func: Callable[..., Any], args: Tuple[Any], kwargs: Tuple[Any]):
+def get_f_args(func: Callable[..., Any], args: Tuple[Any], kwargs: Tuple[Any]):
     """[gets both the input and output arguments of a given function]
 
     Args:
@@ -55,3 +55,30 @@ def type_error_message(parameter_name: str, parameter_value: Any, parameter_type
 
 def switch(expression: Any, switch_cases: Dict[Any, Callable[[], Any]]) -> Any:
     return switch_cases[expression]
+
+
+def type_hint_callable_to_list(type_hint: Tuple[List[Any], Any]) -> List[Any]:
+    return type_hint.values()
+
+
+def try_pass(func: Callable[..., Any], *args: Tuple[Any, ...], **kwargs: Tuple[Any, ...]) -> bool:
+    try:
+        func(*args, **kwargs)
+        return True
+    except:
+        return False
+
+
+def try_func(func: Callable[..., Any]) -> Callable[..., Any]:
+    def try_func_wrapper(*args: Tuple[Any], **kwargs: Tuple[Any]) -> Any:
+        try:
+            return func(*args, **kwargs)
+        except:
+            return None
+
+    return try_func_wrapper
+
+
+@try_func
+def get_supertype(obj: Any) -> Any:
+    pass
